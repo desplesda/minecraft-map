@@ -1,0 +1,33 @@
+diff --git a/PapyrusCs/PapyrusCs.csproj b/PapyrusCs/PapyrusCs.csproj
+index 2671cb9..8246b89 100644
+--- a/PapyrusCs/PapyrusCs.csproj
++++ b/PapyrusCs/PapyrusCs.csproj
+@@ -70,4 +70,6 @@
+       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+     </None>
+   </ItemGroup>
++
++  <PropertyGroup> <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles> </PropertyGroup> 
+ </Project>
+diff --git a/PapyrusCs/map.thtml b/PapyrusCs/map.thtml
+index 5acfbd6..f1acd31 100644
+--- a/PapyrusCs/map.thtml
++++ b/PapyrusCs/map.thtml
+@@ -89,6 +89,8 @@
+         factor: 1
+       };
+ 
++      const urlPrefix = 'https://gnomeminecraft.z8.web.core.windows.net/';
++
+       // # INJECT DATA HERE
+ 
+       // ======
+@@ -175,7 +177,7 @@
+                 const x = tileCoord[1];
+                 const y = tileCoord[2];
+                 return (
+-                  "./" +
++                  (urlPrefix || "./") +
+                   layer.folder +
+                   "/" +
+                   z +
