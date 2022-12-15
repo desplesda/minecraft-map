@@ -1,0 +1,12 @@
+{
+  "bindings": [
+    {
+      "name": "myQueueItem",
+      "type": "queueTrigger",
+      "direction": "in",
+      "queueName": "map-updates",
+      "connection": "gnomeminecraft_STORAGE"
+    }
+  ],
+  "scriptFile": "../dist/GenerateMap/index.js"
+}
