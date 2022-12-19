@@ -10,19 +10,10 @@
 # STORAGE_CONTAINER: The name of the container in STORAGE_ACCOUNT that contains archived world data.
 # STORAGE_QUEUE: The name of the queue in STORAGE_ACCOUNT that contains job information.
 # DESTINATION_CONTAINER: The name of the container in STORAGE_ACCOUNT that the map should be uploded to.
+# WORLD_DATA_FILE: The name of the file in STORAGE_CONTAINER containing archived world data.
 # WORLD_PATH: The path inside the archived world data to the folder containing the 'db' folder.
 
 set -e
-
-echo "Fetching job info..."
-
-# Fetch the first item from the queue
-
-curl "https://$STORAGE_ACCOUNT.queue.core.windows.net/$STORAGE_QUEUE/messages?numofmessages=1&visibilitytimeout=10&$SAS_TOKEN" -o message.xml
-
-MESSAGE_ID="$(xmllint --xpath "//QueueMessagesList/QueueMessage/MessageId/text()" message.xml)"
-MESSAGE_POP_RECEIPT="$(xmllint --xpath "//QueueMessagesList/QueueMessage/PopReceipt/text()" message.xml)"
-WORLD_DATA_FILE="$(xmllint --xpath "//QueueMessagesList/QueueMessage/MessageText/text()" message.xml | jq -r .file)"
 
 WORLD_DATA_URL="https://$STORAGE_ACCOUNT.blob.core.windows.net/$STORAGE_CONTAINER/$WORLD_DATA_FILE"
 
@@ -39,10 +30,12 @@ echo "Checking for existing cache..."
 
 CACHE_URL="https://$STORAGE_ACCOUNT.blob.core.windows.net/$STORAGE_CONTAINER/chunks.sqlite?$SAS_TOKEN"
 
+set +e
 curl -f -LI $CACHE_URL
 
 if [ $? == 0 ];
 then
+    set -e
     echo "Cache found. Downloading..."
     mkdir -p out
     curl $CACHE_URL -o out/chunks.sqlite
@@ -54,6 +47,7 @@ then
     ./azcopy sync "https://$STORAGE_ACCOUNT.blob.core.windows.net/$DESTINATION_CONTAINER?$SAS_TOKEN" out/map --delete-destination=true
 
 else
+    set -e
     echo "No cache found. Will re-generate map from scratch."
 fi
 
@@ -70,10 +64,5 @@ echo "Uploading map..."
 echo "Saving cache..."
 
 ./azcopy cp out/chunks.sqlite "https://$STORAGE_ACCOUNT.blob.core.windows.net/$STORAGE_CONTAINER/chunks.sqlite?$SAS_TOKEN"
-
-
-echo "Removing job from queue..."
-curl -X DELETE "https://$STORAGE_ACCOUNT.queue.core.windows.net/$STORAGE_QUEUE/messages/$MESSAGE_ID?popreceipt=$MESSAGE_POP_RECEIPT&$SAS_TOKEN"
-rm message.xml
 
 echo "Done!"
