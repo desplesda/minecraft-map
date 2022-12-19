@@ -43,7 +43,7 @@ async function deployContainerGroup(containerClient: ContainerInstanceManagement
                 resources: {
                     requests: {
                         cpu: 1,
-                        memoryInGB: 1
+                        memoryInGB: 1.5
                     }
                 },
 
