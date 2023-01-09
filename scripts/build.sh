@@ -18,5 +18,7 @@ rm libgdiplus_4.2-2_amd64.deb
 git clone https://github.com/papyrus-mc/papyruscs
 cd papyruscs
 git apply ../papyruscs.patch
+git remote add chrisl8 https://github.com/chrisl8/papyruscs
+git pull chrisl8 master
 dotnet publish PapyrusCs -c Debug --self-contained --runtime linux-x64 -o ../papyrus-out
 cd ..
