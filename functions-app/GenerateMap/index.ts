@@ -43,10 +43,9 @@ async function deployContainerGroup(containerClient: ContainerInstanceManagement
                 resources: {
                     requests: {
                         cpu: 1,
-                        memoryInGB: 1.5
-                    }
+                        memoryInGB: 4
+                    },
                 },
-
                 environmentVariables: [
                     {
                         name: "SAS_TOKEN",
