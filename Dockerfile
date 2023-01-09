@@ -36,4 +36,4 @@ ENV SAS_TOKEN='<missing>'
 # The path inside the archived world data to the folder containing the 'db' folder.
 ENV WORLD_PATH="Gnome World"
 
-ENTRYPOINT [ "./run.sh" ]
+CMD [ "./run.sh" ]
