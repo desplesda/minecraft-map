@@ -54,6 +54,10 @@ async function deployContainerGroup(containerClient: ContainerInstanceManagement
                     {
                         name: "WORLD_DATA_FILE",
                         value: worldDataFile
+                    },
+                    {
+                        name: "WORLD_PATH",
+                        value: process.env["MAPGEN_WORLD_NAME"]
                     }
                 ]
             }
