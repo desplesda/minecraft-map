@@ -60,7 +60,7 @@ $PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 0 -f jpg -q 70 -
 # Allow failures in the Nether and End worlds - they may or may not exist
 set +e
 
-if [ $RENDER_UNDERGROUND -eq 1 ]
+if [ $RENDER_UNDERGROUND -eq 1 ];
 # Underground
 $PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 0 -p underground -f jpg -q 70  --playericons
 fi
