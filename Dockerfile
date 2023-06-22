@@ -36,6 +36,8 @@ ENV WORLD_PATH="Gnome World"
 
 ENV WORLD_DATA_FILE='<missing>'
 
+ENV RENDER_UNDERGROUND=0
+
 CMD [ "./run.sh" ]
 
 RUN ./setup.sh

@@ -51,6 +51,7 @@ else
     echo "No cache found. Will re-generate map from scratch."
 fi
 
+
 # Run PapyrusCS to generate the data, using the cache
 echo "Generating maps..."
 PAPYRUS=papyrus-out/PapyrusCs
@@ -59,8 +60,10 @@ $PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 0 -f jpg -q 70 -
 # Allow failures in the Nether and End worlds - they may or may not exist
 set +e
 
+if [ $RENDER_UNDERGROUND -eq 1 ]
 # Underground
 $PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 0 -p underground -f jpg -q 70  --playericons
+fi
 # Nether
 $PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 1 -f jpg -q 70  --playericons
 # End
