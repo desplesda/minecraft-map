@@ -11,11 +11,6 @@ RUN ./build.sh
 
 FROM mcr.microsoft.com/dotnet/runtime:7.0-jammy
 
-COPY --from=build papyrus-out papyrus-out
-
-COPY scripts/run.sh .
-COPY scripts/setup.sh .
-
 # The name of an Azure Storage Account.
 ENV STORAGE_ACCOUNT="gnomeminecraft"
 
@@ -37,6 +32,11 @@ ENV WORLD_PATH="Gnome World"
 ENV WORLD_DATA_FILE='<missing>'
 
 ENV RENDER_UNDERGROUND=0
+
+COPY --from=build papyrus-out papyrus-out
+
+COPY scripts/run.sh .
+COPY scripts/setup.sh .
 
 CMD [ "./run.sh" ]
 
