@@ -54,12 +54,17 @@ fi
 # Run PapyrusCS to generate the data, using the cache
 echo "Generating maps..."
 PAPYRUS=papyrus-out/PapyrusCs
-$PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 0 -f jpg -q 70
+$PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 0 -f jpg -q 70 --playericons
 
 # Allow failures in the Nether and End worlds - they may or may not exist
 set +e
-$PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 1 -f jpg -q 70
-$PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 2 -f jpg -q 70
+
+# Underground
+$PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 0 -p underground -f jpg -q 70  --playericons
+# Nether
+$PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 1 -f jpg -q 70  --playericons
+# End
+$PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 2 -f jpg -q 70  --playericons
 set -e
 
 # Sync the generated map to DESTINATION_URL
