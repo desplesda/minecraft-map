@@ -16,8 +16,6 @@ COPY --from=build papyrus-out papyrus-out
 COPY scripts/run.sh .
 COPY scripts/setup.sh .
 
-RUN ./setup.sh
-
 # The name of an Azure Storage Account.
 ENV STORAGE_ACCOUNT="gnomeminecraft"
 
@@ -39,3 +37,5 @@ ENV WORLD_PATH="Gnome World"
 ENV WORLD_DATA_FILE='<missing>'
 
 CMD [ "./run.sh" ]
+
+RUN ./setup.sh
