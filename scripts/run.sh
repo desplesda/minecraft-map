@@ -60,10 +60,6 @@ $PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 0 -f jpg -q 70
 set +e
 $PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 1 -f jpg -q 70
 $PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 2 -f jpg -q 70
-
-set +e
-$PAPYRUS -o out -w "world/$WORLD_PATH" --htmlfile=index.html -d 2 -f jpg -q 70
-
 set -e
 
 # Sync the generated map to DESTINATION_URL
